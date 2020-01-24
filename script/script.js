@@ -1,6 +1,6 @@
 let money = 60000;
 
-let income = 60000;
+let income = '60000';
 
 let addExpenses = "Жилье, транспорт, одежда, техника";
 
