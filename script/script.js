@@ -25,15 +25,9 @@ console.log(typeof money, typeof income, typeof deposit);
 
 console.log(addExpenses.length);
 
-console.log(
-  "Период равен " +
-    period +
-    "-ти" +
-    " месяцам. \nЦель заработать " +
-    mission +
-    "$."
-);
+console.log("Период равен " + period + "-ти" + " месяцам.");
+console.log ("Цель заработать " + mission + "$.");
 
-let budgetDay = 330;
+let budgetDay = money / 30;
 
 console.log(budgetDay);
