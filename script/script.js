@@ -1,27 +1,27 @@
-let money = 60000;
+let money = prompt('Ваш месячный доход?', 60000);
 
 let income = '60000';
 
-let addExpenses = "Жилье, транспорт, одежда, техника";
+let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
 
-let deposit = true;
+let deposit = confirm('Если у Вас депозит в банке?');
 
 let mission = 100000;
 
 let period = 10;
 
-/* 
- Вот так, как я понял через одно ключевое слово и в столбик.
+let requiredExpenses1 = prompt('Введите обязательную статью расходов.');
+let requiredExpenses2 = prompt('Введите обязательную статью расходов.');
 
- let money = 60000,
- income = 60000,
- addExpenses = 'Жилье, транспорт, техника, одежда',
- deposit = true,
- mission = 100000,
- period = 12;
- */
+let total1 = prompt('Во сколько это обойдётся?');
+let total2 = prompt('Во сколько это обойдётся?');
 
-console.log(typeof money, typeof income, typeof deposit);
+let budgetMonth; 
+
+
+console.log(typeof money);
+console.log(typeof income);
+console.log(typeof deposit);
 
 console.log(addExpenses.length);
 
