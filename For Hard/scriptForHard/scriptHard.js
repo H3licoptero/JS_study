@@ -2,6 +2,7 @@
 
 let lang = prompt('', '');
 
+
     if (lang === 'ru') {
         alert('Понедельник, вторник, среда четверг, пятница');
     } else if (lang === 'en') {
@@ -17,7 +18,8 @@ let lang = prompt('', '');
             break;
     }
 
-    let person = prompt('Введите имя ', ' ');
+
+let person = prompt("Введите имя ", " ");
     let namePerson = ( person === 'Артём') ? console.log("Директор") :
      (person === 'Максим') ? console.log('Преподаватель') : console.log('студент');
 
