@@ -6,7 +6,7 @@ let income = '60000';
 
 let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', '');
 
-let deposit = confirm('Еслть ли у Вас депозит в банке?');
+let deposit = confirm('Есть ли у Вас депозит в банке?');
 
 let mission = 100000;
 
