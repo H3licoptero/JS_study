@@ -6,11 +6,13 @@ let income = '60000';
 
 let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', '');
 
-let deposit = confirm('Если у Вас депозит в банке?');
+let deposit = confirm('Еслть ли у Вас депозит в банке?');
 
 let mission = 100000;
 
 let period = 6;
+
+
 
 let requiredExpenses1  = prompt("Введите обязательную статью расходов.", '');
 let requiredExpenses2 = prompt("Введите обязательную статью расходов.", '');
@@ -23,6 +25,8 @@ let budgetMonth = money - (Number(total1) + Number(total2));
 let goal = mission / budgetMonth;
 
 let budgetDay = budgetMonth / 30;
+
+
 
 console.log(typeof money);
 console.log(typeof income);
