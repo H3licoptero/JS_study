@@ -17,7 +17,7 @@ let lang = prompt('', '');
             alert("Monday, tuesday, wednesday, thursday, friday");
             break;
     }
-
+// Тут ещё нужен многомерный массив
 
 let person = prompt("Введите имя ", " ");
     let namePerson = ( person === 'Артём') ? console.log("Директор") :
