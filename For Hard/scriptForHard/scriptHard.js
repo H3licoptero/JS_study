@@ -1,16 +1,15 @@
-'use strict';
+"use strict";
 
-let takeInArg = function(arg) {
-    
-    if (arg !== String()) {
-         alert('Вводить можно только строки.');
-    } else if (arg.length > 30) {
-        console.log(takeInArg.trim());
-    } else if (arg.length > 30) {
-        console.log(arg.substr(0, 30) + '...');
-    }
+function getMessage(arg) {
+  let message = prompt("Введите строку", arg);
+
+  if ((!String(message)) || (Number(message))) {
+    alert("Only strings!");
+  } else if (message.length > 30) {
+    alert(message.substr(0, 30) + "...");
+  } else if (String(message)) {
+    alert(message.trim());
+  } 
 }
 
-let arg = prompt('','');
-
-console.log(arg);
+getMessage();
