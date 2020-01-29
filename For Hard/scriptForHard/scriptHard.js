@@ -1,6 +1,7 @@
 'use strict';
 
- function takeInArg(arg) {
+let takeInArg = function(arg) {
+    
     if (arg !== String()) {
          alert('Вводить можно только строки.');
     } else if (arg.length > 30) {
@@ -10,6 +11,6 @@
     }
 }
 
+let arg = prompt('','');
 
-let result = prompt('', '');
-console.log();
+console.log(arg);
