@@ -1,22 +1,32 @@
 'use strict';
 
+let isNumber = function(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+
+};
+
 // Variables
-let money = +prompt("Ваш месячный доход?"),
+let money,
   income = "Фриланс",
   addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую",""),
   deposit = confirm("Есть ли у Вас депозит в банке?"),
   mission = 100000,
   period = 6,
-  requiredExpenses1 = prompt("Введите обязательную статью расходов.", ""),
-  total1 = +prompt("Во сколько это обойдётся?", ""),
-  requiredExpenses2 = prompt("Введите обязательную статью расходов.", ""),
-  total2 = +prompt("Во сколько это обойдётся?", ""),
-  accumulatedMonth = getAccumulatedMonth(),
-  budgetDay = accumulatedMonth / 30;
+  requiredExpenses = [];
 
 
   
 // Functions
+
+let start = function() {
+  money = prompt("Ваш месячный доход?");
+
+  while (!isNumber(money)) {
+    money = prompt("Ваш месячный доход?");
+  }
+};
+
+start();
 
 //Показывает типы входящих данных
 let showTypeOf = function(data) {
@@ -24,14 +34,31 @@ let showTypeOf = function(data) {
 };
 
 // Обязательные расходы 
-function getExpensesMonth() {
-  return total1 + total2;
-}
+let getExpensesMonth = function() {
+  let sum = 0;
+
+  for (let i = 0; i < 2; i++) {
+
+
+     requiredExpenses[i] = prompt("Введите обязательную статью расходов.", "");
+    
+
+      sum += +prompt("Во сколько это обойдётся?", "");
+  }
+  console.log(requiredExpenses);
+  return sum;
+};
+
+let expensesAmount = getExpensesMonth();
 
 // Возвращает накопления за месяц 
 function getAccumulatedMonth() {
-    return money - getExpensesMonth();
-}                                               
+    return money - expensesAmount;
+}  
+
+let accumulatedMonth = getAccumulatedMonth();
+let budgetDay = accumulatedMonth / 30;
+
 
 // Подсчитывает за какой период будет достигнута цель
 function getTargetMonth() {
@@ -59,7 +86,7 @@ showTypeOf(money);
 showTypeOf(income);
 showTypeOf(deposit);
 console.log(addExpenses.split(", "));
-console.log('Расходы на месяц составят: ' + getExpensesMonth());  
+console.log("Расходы на месяц составят: " + expensesAmount);  
 console.log("Цель будет достигнута за " + Math.max(Math.round(getTargetMonth())) + " месяцев!");
 console.log("Бюджет на день: " + Math.min(Math.round(budgetDay)));
 console.log(getStatusIncome());
