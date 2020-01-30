@@ -37,7 +37,7 @@ let getExpensesMonth = function() {
 
     requiredExpenses[i] = prompt("Введите обязательную статью расходов.", "");
 
-    sum += +prompt("Во сколько это обойдётся?", "");    
+    sum += +prompt("Во сколько это обойдётся?", "");
   }
 
   console.log(requiredExpenses);
