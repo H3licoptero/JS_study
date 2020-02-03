@@ -29,23 +29,14 @@ let appData = {
   expensesMonth: 0,
 
   getExpensesMonth: function() {
-    let result = 0;
-
      for (let key in appData.expenses) {
-       result += appData.expenses[key];
+       appData.expensesMonth += appData.expenses[key];
      }
-
-     appData.expensesMonth = result;
-     return result;
   },
 
   getBudget: function() {
-    let dayInMonth = 30;
-
-    appData.budgetMonth = +appData.budget - appData.getExpensesMonth();
-    appData.budgetDay = appData.budgetMonth / dayInMonth;
-
-    return appData.budgetDay, appData.budgetMonth;    
+    appData.budgetMonth = +appData.budget - appData.expensesMonth;
+    appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
 
   getTargetMonth: function() {
@@ -70,7 +61,7 @@ let appData = {
     if (appData.getTargetMonth() < 0) {
       return "Цель не будет достигнута";
     } else if (appData.getTargetMonth() > 0) {
-      return ("Цель будет достигнута за " + Math.max(Math.round(appData.getTargetMonth())) + " месяцев!");
+      return ("Цель будет достигнута за " + Math.floor(appData.getTargetMonth()) + " месяцев!");
     }
   },
 
@@ -79,17 +70,18 @@ let appData = {
     appData.addExpenses = addExpenses.toLocaleLowerCase().split(", ");
     appData.deposit = confirm("Есть ли у Вас депозит в банке?");
 
-    for (let i = 0; i < 2; i++) {
-      let key = prompt("Введите обязательную статью расходов.", "");
-      let price = +prompt("Во сколько это обойдётся?", "");
+    let key;
+    let price;
 
-      appData.expenses[key] = price;
+    for (let i = 0; i < 2; i++) {
+       key = prompt("Введите обязательную статью расходов.", "");
+       price = +prompt("Во сколько это обойдётся?", "");
 
       while (!isNumber(price) || price === null || price === "" || price === 0) {
         price = prompt("Во сколько это обойдётся?", "");
       }
 
-      key += price;
+      appData.expenses[key] = price;
     }
   }
 };
@@ -100,10 +92,9 @@ appData.getBudget();
 appData.getTargetMonth();
 appData.getStatusIncome();
 
-console.log("Расходы на месяц составят: " + appData.getExpensesMonth());
+console.log("Расходы на месяц составят: " + appData.expensesMonth);
 console.log(appData.resultTargetMonth());
 console.log(appData.getStatusIncome());
-// for(let key in appData) {
-//   console.log("Наша программа включает в себя данные: " + appData[key]); // и вот тут может задание не так понял
-// }
-console.log(appData);
+for(let key in appData) {
+  console.log("Наша программа включает в себя данные: " + key); 
+}
