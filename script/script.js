@@ -30,6 +30,7 @@ let appData = {
 
   getExpensesMonth: function() {
     let result = 0;
+
      for (let key in appData.expenses) {
        result += appData.expenses[key];
      }
@@ -38,20 +39,17 @@ let appData = {
      return result;
   },
 
-   getAccumulatedMonth: function() {
-  return appData.budget - appData.getExpensesMonth();
-  },
-
-
   getBudget: function() {
-    appData.budgetDay = appData.getExpensesMonth() / 30;
+    let dayInMonth = 30;
+
     appData.budgetMonth = +appData.budget - appData.getExpensesMonth();
+    appData.budgetDay = appData.budgetMonth / dayInMonth;
 
     return appData.budgetDay, appData.budgetMonth;    
   },
 
   getTargetMonth: function() {
-    return appData.mission / appData.getAccumulatedMonth();  // вот тут скорее-всего косяк 
+    return appData.mission / appData.budgetMonth;  // вот тут скорее-всего косяк 
   },
 
   getStatusIncome: function() {
@@ -108,3 +106,4 @@ console.log(appData.getStatusIncome());
 // for(let key in appData) {
 //   console.log("Наша программа включает в себя данные: " + appData[key]); // и вот тут может задание не так понял
 // }
+console.log(appData);
