@@ -61,7 +61,7 @@ let appData = {
     if (appData.getTargetMonth() < 0) {
       return "Цель не будет достигнута";
     } else if (appData.getTargetMonth() > 0) {
-      return ("Цель будет достигнута за " + Math.floor(appData.getTargetMonth()) + " месяцев!");
+      return ("Цель будет достигнута за " + Math.max(Math.round(appData.getTargetMonth())) + " месяцев!");
     }
   },
 
@@ -98,3 +98,4 @@ console.log(appData.getStatusIncome());
 for(let key in appData) {
   console.log("Наша программа включает в себя данные: " + key); 
 }
+console.log(appData);
