@@ -49,7 +49,7 @@ let appData = {
   },
 
   getTargetMonth: function() {
-    return appData.mission / appData.budgetMonth;  // вот тут скорее-всего косяк 
+    return appData.mission / appData.budgetMonth;   
   },
 
   getStatusIncome: function() {
