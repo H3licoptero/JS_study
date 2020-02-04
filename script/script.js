@@ -90,16 +90,13 @@ let appData = {
 
 
     let addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую","");
-    appData.addExpenses = addExpenses.split(', ');
+    appData.addExpenses = addExpenses.split(',');
 
-    let arr = appData.addExpenses;
-    let value = addExpenses;
-
-    for(let i = 0; i < arr.length; i++) {
-      value = arr[i].trim();
-      arr[i] = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+    for(let i = 0; i < appData.addExpenses.length; i++) {
+      let itemExpenses = appData.addExpenses[i].trim();
+       appData.addExpenses[i] = itemExpenses.charAt(0).toUpperCase() + itemExpenses.slice(1).toLowerCase();
     }
-    console.log(arr.join(', '));
+    console.log(appData.addExpenses.join(', '));
 
     appData.deposit = confirm("Есть ли у Вас депозит в банке?");
 
