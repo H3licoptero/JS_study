@@ -89,7 +89,15 @@ let appData = {
 
 
     let addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую","");
-    console.log(appData.addExpenses = addExpenses.split(' , '));
+    console.log(appData.addExpenses = addExpenses.split(', '));
+    // appData.addExpenses = addExpenses.charAt(0).toUpperCase().split(', ');
+    for(let word of addExpenses) {
+      addExpenses = [];
+      word = word.toString().charAt(0).toUpperCase() + word.substring(1);
+      addExpenses = word;
+      console.log(addExpenses);
+    }
+
     appData.deposit = confirm("Есть ли у Вас депозит в банке?");
 
 
@@ -139,9 +147,9 @@ appData.getStatusIncome();
 console.log("Расходы на месяц составят: " + appData.expensesMonth);
 console.log(appData.resultTargetMonth());
 console.log(appData.getStatusIncome());
-// for(let key in appData) {
-//   console.log("Наша программа включает в себя данные: " + key); 
-// }
+for(let key in appData) {
+  console.log("Наша программа включает в себя данные: " + key); 
+}
 console.log(appData);
 appData.getInfoDeposit();
 console.log(appData.calcSavedMoney(), appData.moneyDeposit, appData.percentDeposit);
