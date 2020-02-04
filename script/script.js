@@ -147,9 +147,9 @@ appData.getStatusIncome();
 console.log("Расходы на месяц составят: " + appData.expensesMonth);
 console.log(appData.resultTargetMonth());
 console.log(appData.getStatusIncome());
-for(let key in appData) {
-  console.log("Наша программа включает в себя данные: " + key); 
-}
+// for(let key in appData) {
+//   console.log("Наша программа включает в себя данные: " + key); 
+// }
 console.log(appData);
 appData.getInfoDeposit();
 console.log(appData.calcSavedMoney(), appData.moneyDeposit, appData.percentDeposit);
@@ -166,8 +166,24 @@ console.log(expnesesBtn);
 let depositCheck = document.querySelector('#deposit-check');
 console.log(depositCheck);
 
-let additionalIncomeItem = document.querySelectorAll('.additional_income')[0];
-console.log(additionalIncomeItem);
+let additionalIncomeItem = document.querySelectorAll('.additional_income-item')[0],
+    additionalIncomeItem2 = document.querySelectorAll('.additional_income-item')[1];
+console.log(additionalIncomeItem, additionalIncomeItem2);
 
-let values = document.querySelectorAll('.result');
-console.log(values);
+// let budgetMonth = document.getElementsByClassName('budget_month-value')[0],
+//     budgetDay = document.getElementsByClassName('budget_day-value')[0],
+//     expensesMonth = document.getElementsByClassName('expenses_month-value')[0],
+//     additionalIncome = document.getElementsByClassName('additional_income-value')[0],
+//     additionalExpenses = document.getElementsByClassName('additional_expenses-value')[0],
+//     incomePeriod = document.getElementsByClassName('income_period-value')[0],
+//     targetMonth = document.getElementsByClassName('target_month-value')[0];
+   
+// console.log(budgetMonth, budgetDay, expensesMonth, additionalIncome, additionalExpenses, incomePeriod, targetMonth);
+
+let budgetMonth = document.getElementsByClassName('budget_month-value')[0],
+  budgetDay = document.getElementsByClassName('budget_day-value')[0],
+  expensesMonth = document.getElementsByClassName('expenses_month-value')[0],
+  additionalIncome = document.getElementsByClassName('additional_income-value')[0],
+  additionalExpenses = document.getElementsByClassName('additional_expenses-value')[0],
+  incomePeriod = document.getElementsByClassName('income_period-value')[0],
+  targetMonth = document.getElementsByClassName('target_month-value')[0];
