@@ -9,8 +9,8 @@ let isNumber = function(n) {
 let money,
   start = function() {
     do {
-      money = prompt("Ваш месячный доход?");
-    } while (!isNumber(money));
+      money = +prompt("Ваш месячный доход?");
+    } while (!isNumber(money) || money === 0 || money === "");
   };
 start();
 
@@ -72,6 +72,7 @@ let appData = {
     let itemIncome;
     let cashIncome;
 
+    if(confirm('Есть ли у Вас дополнительный источник дохода?')) {
       itemIncome = prompt('Какой у Вас дополнительный источник дохода?', '');
       
       while (isNumber(itemIncome) || itemIncome === null || itemIncome.trim() === "") {
@@ -85,16 +86,20 @@ let appData = {
       }
 
       appData.income[itemIncome] = +cashIncome;
-    
+    }
 
 
     let addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую","");
-    console.log(appData.addExpenses = addExpenses.split(', '));
+    appData.addExpenses = addExpenses.split(', ');
 
-    for(let word of addExpenses) {
-      word = word.toString().charAt(0).toUpperCase() + word.substring(1); // тут происходит дичь
-      console.log(word);
+    let arr = appData.addExpenses;
+    let value = addExpenses;
+
+    for(let i = 0; i < arr.length; i++) {
+      value = arr[i].trim();
+      arr[i] = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
     }
+    console.log(arr.join(', '));
 
     appData.deposit = confirm("Есть ли у Вас депозит в банке?");
 
@@ -145,9 +150,9 @@ appData.getStatusIncome();
 console.log("Расходы на месяц составят: " + appData.expensesMonth);
 console.log(appData.resultTargetMonth());
 console.log(appData.getStatusIncome());
-for(let key in appData) {
-  console.log("Наша программа включает в себя данные: " + key); 
-}
+// for(let key in appData) {
+//   console.log("Наша программа включает в себя данные: " + key); 
+// }
 console.log(appData);
 appData.getInfoDeposit();
 console.log(appData.calcSavedMoney(), appData.moneyDeposit, appData.percentDeposit);
