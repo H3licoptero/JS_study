@@ -90,12 +90,10 @@ let appData = {
 
     let addExpenses = prompt("Перечислите возможные расходы за рассчитываемый период через запятую","");
     console.log(appData.addExpenses = addExpenses.split(', '));
-    // appData.addExpenses = addExpenses.charAt(0).toUpperCase().split(', ');
+
     for(let word of addExpenses) {
-      addExpenses = [];
-      word = word.toString().charAt(0).toUpperCase() + word.substring(1);
-      addExpenses = word;
-      console.log(addExpenses);
+      word = word.toString().charAt(0).toUpperCase() + word.substring(1); // тут происходит дичь
+      console.log(word);
     }
 
     appData.deposit = confirm("Есть ли у Вас депозит в банке?");
