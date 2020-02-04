@@ -150,9 +150,9 @@ appData.getStatusIncome();
 console.log("Расходы на месяц составят: " + appData.expensesMonth);
 console.log(appData.resultTargetMonth());
 console.log(appData.getStatusIncome());
-// for(let key in appData) {
-//   console.log("Наша программа включает в себя данные: " + key); 
-// }
+for(let key in appData) {
+  console.log("Наша программа включает в себя данные: " + key); 
+}
 console.log(appData);
 appData.getInfoDeposit();
 console.log(appData.calcSavedMoney(), appData.moneyDeposit, appData.percentDeposit);
