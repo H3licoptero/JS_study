@@ -123,9 +123,7 @@ let appData = {
 
     for (let i = 0; i < appData.addExpenses.length; i++) {
       let itemExpenses = appData.addExpenses[i].trim();
-      appData.addExpenses[i] =
-        itemExpenses.charAt(0).toUpperCase() +
-        itemExpenses.slice(1).toLowerCase();
+      appData.addExpenses[i] = itemExpenses.charAt(0).toUpperCase() + itemExpenses.slice(1).toLowerCase();
     }
     console.log(appData.addExpenses.join(", "));
 
