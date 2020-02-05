@@ -15,16 +15,26 @@ let bookThree = document.getElementsByTagName("a")[4];
 bookThree.textContent = "Книга 3. this и Прототипы Объектов";
 
 
+let bookTwo = document.querySelectorAll('ul'),
+    bookLiTwo = document.querySelectorAll('li');
 
-let bookSix = document.querySelectorAll('ul'),
+bookTwo[0].insertBefore(bookLiTwo[2], bookLiTwo[2]);
+bookTwo[0].insertBefore(bookLiTwo[4], bookLiTwo[5]);
+bookTwo[0].insertBefore(bookLiTwo[6], bookLiTwo[4]);
+bookTwo[0].insertBefore(bookLiTwo[8], bookLiTwo[4]);
+bookTwo[0].insertBefore(bookLiTwo[2], bookLiTwo[10]);
+
+
+
+let bookFive = document.querySelectorAll('ul'),
     bookLi = document.querySelectorAll('li');
 
-bookSix[5].insertBefore(bookLi[55], bookLi[48]);
-bookSix[5].insertBefore(bookLi[49], bookLi[48]);  
-bookSix[5].insertBefore(bookLi[50], bookLi[49]);  
-bookSix[5].insertBefore(bookLi[50], bookLi[48]); 
-bookSix[5].insertBefore(bookLi[52], bookLi[51]);
-bookSix[5].insertBefore(bookLi[53], bookLi[51]);       
+bookFive[5].insertBefore(bookLi[55], bookLi[48]);
+bookFive[5].insertBefore(bookLi[49], bookLi[48]);  
+bookFive[5].insertBefore(bookLi[50], bookLi[49]);  
+bookFive[5].insertBefore(bookLi[50], bookLi[48]); 
+bookFive[5].insertBefore(bookLi[52], bookLi[51]);
+bookFive[5].insertBefore(bookLi[53], bookLi[51]);       
 
 
 
@@ -39,7 +49,7 @@ console.log(books);
 console.log(book);
 console.log(adv);
 console.log(bookThree);
-console.log(bookSix);
+console.log(bookFive);
 console.log(bookLi);
 
 
