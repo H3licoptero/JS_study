@@ -15,6 +15,7 @@ let bookThree = document.getElementsByTagName("a")[4];
 bookThree.textContent = "Книга 3. this и Прототипы Объектов";
 
 
+
 let bookTwo = document.querySelectorAll('ul'),
     bookLiTwo = document.querySelectorAll('li');
 
@@ -38,9 +39,6 @@ bookFive[5].insertBefore(bookLi[50], bookLi[48]);
 bookFive[5].insertBefore(bookLi[52], bookLi[51]);
 bookFive[5].insertBefore(bookLi[53], bookLi[51]);       
 
-
-
-
 books[0].insertBefore(book[1], book[0]);
 books[0].insertBefore(book[4], book[2]);  
 books[0].insertBefore(book[2], book[5]);
@@ -50,16 +48,25 @@ books[0].insertBefore(book[5], book[2]);
 let newTitle = document.createElement('li');
 newTitle.textContent = "Глава 8: За пределами ES6"; 
 
-let bookSix = document.querySelectorAll('ul');
+let bookSix = document.querySelectorAll('ul'),
+ bookSixLi = document.querySelectorAll('li');
+
+
 bookSix[5].appendChild(newTitle);
-let bookSixLi = document.querySelectorAll('li');
 
 
-bookSix[5].insertBefore(bookSixLi[26], null);
+
+bookSix[5].insertBefore(bookSixLi[26], bookSix[42]);
 bookSix[5].insertBefore(bookSixLi[25], null);
+bookSix[5].insertBefore(bookSixLi[26], null);
 bookSix[5].insertBefore(bookSixLi[25], bookSixLi[26]);
+bookSix[5].removeChild(bookSixLi[56]);
 
-let getBook = document.querySelectorAll('.book')[5];
+
+ let bookThreeUl = document.querySelectorAll('ul'),
+  bookThreeLi = document.querySelectorAll('li');
+
+
 
 console.log(books);
 console.log(book);
@@ -69,10 +76,6 @@ console.log(bookFive);
 console.log(bookLi);
 console.log(newTitle.innerHTML);
 console.log(newTitle);
-console.log(getBook);
-
-
-
-
-
+console.log(bookThreeUl);
+console.log(bookThreeLi);
 
