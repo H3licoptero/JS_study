@@ -29,13 +29,8 @@ let isNumber = function(n) {
 };
 
 // Тут модальное окно с запросом для указания месячного дохода
-let money,
-  start = function() {
-    do {
-      money = +prompt("Ваш месячный доход?");
-    } while (!isNumber(money) || money === 0 || money === "");
-  };
-start();
+let money;
+
 
 // Объект с нашим проектом
 let appData = {
@@ -52,6 +47,15 @@ let appData = {
   budgetDay: 0,
   budgetMonth: 0,
   expensesMonth: 0,
+  start: function() {                                               // перенесли ф-ию start в appData
+    do {
+      money = +prompt("Ваш месячный доход?");
+    } while (!isNumber(money) || money === 0 || money === "");
+
+    // appData.asking();
+    // appData.getExpensesMonth();
+    // appData.getBudget();
+  },
 
   getExpensesMonth: function() {
     for (let key in appData.expenses) {
@@ -167,18 +171,26 @@ let appData = {
   }
 };
 
-appData.asking();
-appData.getExpensesMonth();
-appData.getBudget();
+
+calculate.addEventListener('click', appData.start);
+
+
+
+
+
+
+// appData.asking();
+// appData.getExpensesMonth();
+// appData.getBudget();
 appData.getTargetMonth();
-appData.getStatusIncome();
+// appData.getStatusIncome();
 
 console.log("Расходы на месяц составят: " + appData.expensesMonth);
 console.log(appData.resultTargetMonth());
 console.log(appData.getStatusIncome());
-for(let key in appData) {
-  console.log("Наша программа включает в себя данные: " + key);
-}
+// for(let key in appData) {
+//   console.log("Наша программа включает в себя данные: " + key);
+// }
 console.log(appData);
 appData.getInfoDeposit();
 console.log(
