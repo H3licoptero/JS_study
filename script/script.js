@@ -28,8 +28,8 @@ let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-// Тут модальное окно с запросом для указания месячного дохода
-let money;
+// // Тут модальное окно с запросом для указания месячного дохода
+// let money;
 
 
 // Объект с нашим проектом
@@ -43,14 +43,17 @@ let appData = {
   moneyDeposit: 0,
   mission: 100000,
   period: 6,
-  budget: money,
+  budget: 0,
   budgetDay: 0,
   budgetMonth: 0,
   expensesMonth: 0,
   start: function() {                                               // перенесли ф-ию start в appData
-    do {
-      money = +prompt("Ваш месячный доход?");
-    } while (!isNumber(money) || money === 0 || money === "");
+    // do {
+    //   money = +prompt("Ваш месячный доход?");
+    // } while (!isNumber(money) || money === 0 || money === "");
+
+  appData.budget = salaryAmount.value;
+  console.log(salaryAmount.value);
 
     // appData.asking();
     // appData.getExpensesMonth();
@@ -199,30 +202,30 @@ console.log(
   appData.percentDeposit
 );
 
-console.log(
-  calculate,
-  incomeBtn,
-  expnesesBtn,
-  depositCheck
-);
-console.log(additionalIncomeItem, additionalIncomeItem2);
+// console.log(
+//   calculate,
+//   incomeBtn,
+//   expnesesBtn,
+//   depositCheck
+// );
+// console.log(additionalIncomeItem, additionalIncomeItem2);
 
-console.log(
-  salaryAmount,
-  incomeTitle,
-  incomeAmount,
-  expensesTitle,
-  expensesAmount,
-  additionalExpensesItem,
-  targetAmount
-);
+// console.log(
+//   salaryAmount,
+//   incomeTitle,
+//   incomeAmount,
+//   expensesTitle,
+//   expensesAmount,
+//   additionalExpensesItem,
+//   targetAmount
+// );
 
-console.log(
-  budgetMonth,
-  budgetDay,
-  expensesMonth,
-  additionalIncome,
-  additionalExpenses,
-  incomePeriod,
-  targetMonth
-);
+// console.log(
+//   budgetMonth,
+//   budgetDay,
+//   expensesMonth,
+//   additionalIncome,
+//   additionalExpenses,
+//   incomePeriod,
+//   targetMonth
+// );
