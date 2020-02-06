@@ -66,16 +66,8 @@ bookSix[5].removeChild(bookSixLi[56]);
  let bookThreeUl = document.querySelectorAll('ul'),
   bookThreeLi = document.querySelectorAll('li');
 
+let newLi = document.createElement('li');
+newLi.textContent = "Приложение A: Благодарности!";
 
-
-console.log(books);
-console.log(book);
-console.log(adv);
-console.log(bookThree);
-console.log(bookFive);
-console.log(bookLi);
-console.log(newTitle.innerHTML);
-console.log(newTitle);
-console.log(bookThreeUl);
-console.log(bookThreeLi);
+bookThreeUl[2].appendChild(newLi);
 
