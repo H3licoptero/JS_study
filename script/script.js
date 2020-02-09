@@ -13,6 +13,7 @@ let salaryAmount = document.querySelector(".salary-amount"),
   expensesItems = document.querySelectorAll(".expenses-items"),
   additionalExpensesItem = document.querySelector(".additional_expenses-item"),
   periodSelect = document.querySelector(".period-select"),
+  periodAmount = document.querySelector(".period-amount"),
   targetAmount = document.querySelector(".target-amount"),
   incomeItems = document.querySelectorAll(".income-items");
 
@@ -23,12 +24,15 @@ let budgetMonth = document.getElementsByClassName("budget_month-value")[0],
   additionalExpensesValue = document.getElementsByClassName("additional_expenses-value")[0],
   incomePeriodValue = document.getElementsByClassName("income_period-value")[0],
   targetMonth = document.getElementsByClassName("target_month-value")[0];
+ 
 
 // Check number
 let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
+
+// наш основной объект
 let appData = {
   income: {},
   incomeMonth: 0,
@@ -45,10 +49,11 @@ let appData = {
 
   // перенесли ф-ию start в appData. Ф-ия для укзания месячного дохода.
   start: function() {
-    if (salaryAmount.value === "") {
-      alert('Ошибка! Поле "Месячный доход" должно быть заполнено!');
-      return;
-    }
+
+    if(salaryAmount.value === '') {
+       return;
+     }
+  
 
     //поле с суммой нашего месячног дохода
     appData.budget = +salaryAmount.value;
@@ -64,6 +69,8 @@ let appData = {
     appData.showResult();
   },
 
+ 
+
 
   //метод для вывода всех наших рассчётов в поля всего блока result(html)
   showResult: function() {
@@ -74,7 +81,6 @@ let appData = {
     additionalIncome.value = appData.addIncome.join(", ");
     targetMonth.value = Math.ceil(appData.getTargetMonth());
     incomePeriodValue.value = appData.calcSavedMoney();
-    // incomeTitle.value = appData.income.join(', ');
   },
 
   getExpensesMonth: function() {
@@ -126,10 +132,10 @@ let appData = {
      let itemsIncome = item.querySelector(".income-title").value;
      let cashItems = item.querySelector(".income-amount").value;
 
-    if(itemsIncome !== '' && cashItems !== '') {
-      appData.income[itemsIncome] = +cashItems;
-    }
-  });
+     if(itemsIncome !== '' && cashItems !== '') {
+       appData.income[itemsIncome] = +cashItems;
+     }
+   });
   },
 
   //цель за месяц
@@ -207,7 +213,20 @@ let appData = {
   // метод для рассчёта результата
   calcSavedMoney: function() {
     return appData.budgetMonth * periodSelect.value;
-  }
+  },
+
+
+   /* изменения значений при использовании скролла periodSelect,
+   динамическое изменение "накоплений за период" после расчёта */
+  // rangeSelect: function() {
+    // periodSelect.oninput = function() {
+    //   // let periodAmount = document.querySelector(".period-amount");
+
+    //   periodAmount.innerHTML = periodSelect.value;
+    //   targetMonth.value = periodSelect.value;
+    //   incomePeriodValue.value = appData.calcSavedMoney();
+    // };
+  // }
 };
 
 
@@ -216,18 +235,16 @@ incomeBtn.addEventListener("click", appData.addIncomeBlock);
 expnesesBtn.addEventListener('click', appData.addExpensesBlock);
 
 
-
 appData.getTargetMonth();
 console.log("Расходы на месяц составят: " + appData.expensesMonth);
 console.log(appData.getStatusIncome());
 
-// тут работа с range, которая показывает изменения знасчения после прокрутки
-let scrollSide = document.querySelector('.period-select');
-let output = document.querySelector('.period-amount');
-
-output.innerHTML = scrollSide.value;
-scrollSide.oninput = function() {
-   output.innerHTML = scrollSide.value;
+/* изменения значений при использовании скролла periodSelect,
+  динамическое изменение "накоплений за период" после расчёта */
+periodSelect.oninput = function() {
+   periodAmount.textContent = periodSelect.value;
+   targetMonth.value = periodSelect.value;
+   incomePeriodValue.value = appData.calcSavedMoney();
 };
 
-console.log(output, scrollSide);
+
