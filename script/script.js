@@ -66,7 +66,6 @@ let appData = {
     appData.getAddExpenses();
     appData.getAddIncome();
     appData.getBudget();
-    // appData.calcPeriod();
 
     appData.showResult();
   },
@@ -225,6 +224,12 @@ let appData = {
 calculate.addEventListener('click', appData.start);
 incomeBtn.addEventListener("click", appData.addIncomeBlock);
 expnesesBtn.addEventListener('click', appData.addExpensesBlock);
+
+
+
+periodSelect.oninput = function() {
+   periodAmount.value = appData.calcPeriod();
+};
 
 
 appData.getTargetMonth();
