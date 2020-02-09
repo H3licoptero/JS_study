@@ -50,11 +50,12 @@ let appData = {
   // перенесли ф-ию start в appData. Ф-ия для укзания месячного дохода.
   start: function() {
 
+  /* изменения значений при использовании скролла periodSelect,
+  динамическое изменение "накоплений за период" после расчёта */
     if(salaryAmount.value === '') {
        return;
      }
   
-
     //поле с суммой нашего месячног дохода
     appData.budget = +salaryAmount.value;
 
@@ -65,12 +66,15 @@ let appData = {
     appData.getAddExpenses();
     appData.getAddIncome();
     appData.getBudget();
+    // appData.calcPeriod();
 
     appData.showResult();
   },
 
- 
-
+  calcPeriod: function() {
+    incomePeriodValue.value = salaryAmount.value * periodSelect.value;
+    periodAmount.textContent = periodSelect.value;
+  },
 
   //метод для вывода всех наших рассчётов в поля всего блока result(html)
   showResult: function() {
@@ -81,6 +85,7 @@ let appData = {
     additionalIncome.value = appData.addIncome.join(", ");
     targetMonth.value = Math.ceil(appData.getTargetMonth());
     incomePeriodValue.value = appData.calcSavedMoney();
+    periodSelect.addEventListener('change', appData.calcPeriod());    
   },
 
   getExpensesMonth: function() {
@@ -214,19 +219,6 @@ let appData = {
   calcSavedMoney: function() {
     return appData.budgetMonth * periodSelect.value;
   },
-
-
-   /* изменения значений при использовании скролла periodSelect,
-   динамическое изменение "накоплений за период" после расчёта */
-  // rangeSelect: function() {
-    // periodSelect.oninput = function() {
-    //   // let periodAmount = document.querySelector(".period-amount");
-
-    //   periodAmount.innerHTML = periodSelect.value;
-    //   targetMonth.value = periodSelect.value;
-    //   incomePeriodValue.value = appData.calcSavedMoney();
-    // };
-  // }
 };
 
 
@@ -239,12 +231,5 @@ appData.getTargetMonth();
 console.log("Расходы на месяц составят: " + appData.expensesMonth);
 console.log(appData.getStatusIncome());
 
-/* изменения значений при использовании скролла periodSelect,
-  динамическое изменение "накоплений за период" после расчёта */
-periodSelect.oninput = function() {
-   periodAmount.textContent = periodSelect.value;
-   targetMonth.value = periodSelect.value;
-   incomePeriodValue.value = appData.calcSavedMoney();
-};
 
 
