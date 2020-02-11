@@ -57,7 +57,6 @@ let appData = {
       return;
     }
 
-
     cancel.style.display = 'block';
     calculate.style.display = 'none';
 
@@ -79,15 +78,13 @@ let appData = {
     this.getBudget();
 
     this.showResult();
-    
   },
 
   /* изменения значений при использовании скролла periodSelect,
   динамическое изменение "накоплений за период" после расчёта */
   calcPeriod: function() {
     incomePeriodValue.value = salaryAmount.value * periodSelect.value;
-    periodAmount.textContent = periodSelect.value;
-    
+    periodAmount.textContent = periodSelect.value; 
   },
 
   //метод для вывода всех наших рассчётов в поля всего блока result(html)
@@ -105,15 +102,13 @@ let appData = {
   getExpensesMonth: function() {
     for (let key in appData.expenses) {
       appData.expensesMonth += appData.expenses[key];
-    }
-    
+    } 
   },
 
   //тут рассчитывается месячный доход с учётом расходов(budgetMonth), а так же расчитывается доход на день
   getBudget: function() {
     this.budgetMonth = +this.budget + this.incomeMonth - this.expensesMonth;
-    this.budgetDay = Math.ceil(this.budgetMonth / 30);
-    
+    this.budgetDay = Math.ceil(this.budgetMonth / 30); 
   },
 
   //рассчитываем возможный доход запись в поля "additional_income-item"
@@ -123,8 +118,7 @@ let appData = {
       if (itemValue !== "") {
         appData.addIncome.push(itemValue);
       }
-    });
-    
+    });  
   },
 
   //записываем наши возможные расходы в поле "возможные расходы"(additional_expenses-item)
@@ -135,8 +129,7 @@ let appData = {
       if (item !== "") {
         appData.addExpenses.push(item);
       }
-    });
-    
+    });  
   },
 
   //добавляем поля для наших возможных доходов
@@ -147,7 +140,6 @@ let appData = {
     if (incomeItems.length === 3) {
       incomeBtn.style.display = "none";
     }
-    
   },
 
   //рассчитываем доп.доход в модальых окнах
@@ -159,15 +151,12 @@ let appData = {
       if (itemsIncome !== "" && cashItems !== "") {
         appData.income[itemsIncome] = +cashItems;
       }
-    });
-    
+    });    
   },
 
   //цель за месяц
   getTargetMonth: function() {
-    
-    return targetAmount.value / this.budgetMonth;
-    
+    return targetAmount.value / this.budgetMonth; 
   },
 
   //условия для проверки уровня доходов
@@ -206,7 +195,6 @@ let appData = {
     if (expensesItems.length === 3) {
       expensesBtn.style.display = "none";
     }
-    
   },
 
   //метод для записи в поля "Наименование" и "Сумма" в обязательных расходах
@@ -218,7 +206,6 @@ let appData = {
         appData.expenses[itemExpenses] = +cashExpenses;
       }
     });
-  
   },
 
   getInfoDeposit: function() {
@@ -241,12 +228,24 @@ let appData = {
 
   // метод для рассчёта результата
   calcSavedMoney: function() {
-    // console.log(this);
     return appData.budgetMonth * periodSelect.value;
-    
   },
 
   reset: function() {
+
+    this.income = {};
+    this.incomeMonth = 0;
+    this.addIncom = [];
+    this.expenses = {};
+    this.addExpenses = [];
+    this.deposit = false;
+    this.percentDeposit = 0;
+    this.moneyDeposit = 0;
+    this.budget = 0;
+    this.budgetDay = 0;
+    this.budgetMonth = 0;
+    this.expensesMonth = 0;
+
     cancel.style.display = "none";
     calculate.style.display = "block";
    
