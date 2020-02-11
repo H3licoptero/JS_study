@@ -63,7 +63,9 @@ let appData = {
     inputs = document.querySelectorAll('input[type = text]');
     for(let i = 0; i < inputs.length; i++) {
       inputs[i].setAttribute('disabled', 1);
-      periodSelect.setAttribute("disabled", true);
+    
+      incomeBtn.setAttribute('disabled', true);
+      expensesBtn.setAttribute('disabled', true);
     }
 
     //поле с суммой нашего месячного дохода
@@ -252,9 +254,10 @@ let appData = {
     for (let i = 0; i < inputs.length; i++) {
       inputs[i].value = '';
       inputs[i].removeAttribute("disabled", 1);
-      periodSelect.removeAttribute("disabled", true);
       periodSelect.value = 1;
       periodAmount.textContent = periodSelect.value = 1;
+      incomeBtn.removeAttribute("disabled", true);
+      expensesBtn.removeAttribute("disabled", true);
     }
 
     for(let i = 0; i < incomeItems.length; i++) {
