@@ -298,6 +298,3 @@ cancel.addEventListener('click', function() {
 periodSelect.oninput = function() {
   periodAmount.value = appData.calcPeriod();
 };
-
-
-
