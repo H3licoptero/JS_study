@@ -23,12 +23,8 @@ let salaryAmount = document.querySelector(".salary-amount"),
 let budgetMonth = document.getElementsByClassName("budget_month-value")[0],
   budgetDay = document.getElementsByClassName("budget_day-value")[0],
   expensesMonth = document.getElementsByClassName("expenses_month-value")[0],
-  additionalIncome = document.getElementsByClassName(
-    "additional_income-value"
-  )[0],
-  additionalExpensesValue = document.getElementsByClassName(
-    "additional_expenses-value"
-  )[0],
+  additionalIncome = document.getElementsByClassName("additional_income-value")[0],
+  additionalExpensesValue = document.getElementsByClassName("additional_expenses-value")[0],
   incomePeriodValue = document.getElementsByClassName("income_period-value")[0],
   targetMonth = document.getElementsByClassName("target_month-value")[0];
 
@@ -92,19 +88,19 @@ AppData.prototype.calcPeriod = function() {
 
 //метод для вывода всех наших рассчётов в поля всего блока result(html)
 AppData.prototype.showResult = function() {
-  const _this = this;
+  let _this = this;
   budgetMonth.value = this.budgetMonth;
   budgetDay.value = this.budgetDay;
   expensesMonth.value = this.expensesMonth;
-  additionalExpensesValue.value = this.addExpenses.join(", ");
-  additionalIncome.value = this.addIncome.join(", ");
+  additionalExpensesValue.value = _this.addExpenses.join(", ");
+  additionalIncome.value = _this.addIncome.join(", ");
   targetMonth.value = Math.ceil(this.getTargetMonth());
   incomePeriodValue.value = this.calcSavedMoney();
   periodSelect.addEventListener("change", _this.calcPeriod());
 };
 
 AppData.prototype.getExpensesMonth = function() {
-  for (let key in appData.expenses) {
+  for (let key in this.expenses) {
     this.expensesMonth += this.expenses[key];
   }
 };
@@ -284,31 +280,31 @@ AppData.prototype.reset = function() {
 
 // вот тут начинается просто адок, когда засовываю в метод 
 
-// AppData.prototype.eventsListeners = function() {
-//   const _this = this;
-//   calculate.addEventListener("click", function() {
-//     _this.start();
-//   });
+AppData.prototype.eventsListeners = function() {
+  const _this = this;
+  calculate.addEventListener("click", function() {
+    _this.start();
+  });
 
-//   incomeBtn.addEventListener("click", function() {
-//     _this.addIncomeBlock();
-//   });
+  incomeBtn.addEventListener("click", function() {
+    _this.addIncomeBlock();
+  });
 
-//   expensesBtn.addEventListener("click", function() {
-//     _this.addExpensesBlock();
-//   });
+  expensesBtn.addEventListener("click", function() {
+    _this.addExpensesBlock();
+  });
 
-//   cancel.addEventListener("click", function() {
-//     _this.reset();
-//   });
+  cancel.addEventListener("click", function() {
+    _this.reset();
+  });
 
-//   periodSelect.addEventListener("input", function() {
-//     periodAmount.value = _this.calcPeriod();
-//   });
-// };
+  periodSelect.addEventListener("input", function() {
+    periodAmount.value = _this.calcPeriod();
+  });
+};
 
 const appData = new AppData();
-// AppData.prototype.eventsListeners();
+AppData.prototype.eventsListeners();
 console.log(appData);
 
 // AppData.prototype.eventsListeners = function() {
@@ -341,22 +337,22 @@ console.log(appData);
 
 // Вот так работает
 
-calculate.addEventListener("click", function(){
-  appData.start();
-});
+// calculate.addEventListener("click", function(){
+//   appData.start();
+// });
 
-incomeBtn.addEventListener("click", function() {
-  appData.addIncomeBlock();
-});
+// incomeBtn.addEventListener("click", function() {
+//   appData.addIncomeBlock();
+// });
 
-expensesBtn.addEventListener('click', function() {
-  appData.addExpensesBlock();
-});
+// expensesBtn.addEventListener('click', function() {
+//   appData.addExpensesBlock();
+// });
 
-cancel.addEventListener('click', function() {
-  appData.reset();
-});
+// cancel.addEventListener('click', function() {
+//   appData.reset();
+// });
 
-periodSelect.addEventListener("input", function() {
-  periodAmount.value = appData.calcPeriod();
-});
+// periodSelect.addEventListener("input", function() {
+//   periodAmount.value = appData.calcPeriod();
+// });
