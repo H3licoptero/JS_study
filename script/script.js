@@ -276,7 +276,6 @@ AppData.prototype.reset = function() {
   }
 };
 
-
 AppData.prototype.eventsListeners = function() {
   const _this = this;
   calculate.addEventListener("click", function() {
