@@ -277,9 +277,6 @@ AppData.prototype.reset = function() {
 };
 
 
-
-// вот тут начинается просто адок, когда засовываю в метод 
-
 AppData.prototype.eventsListeners = function() {
   const _this = this;
   calculate.addEventListener("click", function() {
