@@ -304,55 +304,6 @@ AppData.prototype.eventsListeners = function() {
 };
 
 const appData = new AppData();
-AppData.prototype.eventsListeners();
-console.log(appData);
-
-// AppData.prototype.eventsListeners = function() {
-//   // const _this this
-//   calculate.addEventListener("click", function() {
-//     this.start();
-//   });
-
-//   incomeBtn.addEventListener("click", function() {
-//     this.addIncomeBlock();
-//   });
-
-//   expensesBtn.addEventListener("click", function() {
-//     this.addExpensesBlock();
-//   });
-
-//   cancel.addEventListener("click", function() {
-//     this.reset();
-//   });
-
-//   periodSelect.addEventListener("input", function() {
-//     periodAmount.value = this.calcPeriod();
-//   });
-// };
-
-// AppData.prototype.eventsListeners();
+appData.eventsListeners();
 
 
-
-
-// Вот так работает
-
-// calculate.addEventListener("click", function(){
-//   appData.start();
-// });
-
-// incomeBtn.addEventListener("click", function() {
-//   appData.addIncomeBlock();
-// });
-
-// expensesBtn.addEventListener('click', function() {
-//   appData.addExpensesBlock();
-// });
-
-// cancel.addEventListener('click', function() {
-//   appData.reset();
-// });
-
-// periodSelect.addEventListener("input", function() {
-//   periodAmount.value = appData.calcPeriod();
-// });
