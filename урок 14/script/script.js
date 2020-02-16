@@ -18,20 +18,17 @@ enter.addEventListener("click", function() {
   let newDiv = document.createElement("div");
 
   if (createElement.value.charAt(0) === ".") {
-    // newDiv.subsring(1);
     newDiv.className = "block";
     newDiv.style.backgroundColor = 'beige';
     newDiv.style.fontSize = '30px';
-    newDiv.textContent = createElement.value;
+    newDiv.textContent = createElement.value.slice(1);
     document.body.append(newDiv);
-
   } else if (createElement.value.charAt(0) === "#") {
-    // newEl.substring(1);
     newEl.className = "best";
     newEl.style.backgroundColor = "gold";
     newEl.style.fontSize = "30px";
-    newEl.textContent = createElement.value;
-     document.body.append(newEl);
+    newEl.textContent = createElement.value.slice(1);
+    document.body.append(newEl);
   }
 });
 
