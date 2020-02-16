@@ -2,90 +2,58 @@
 
 function DomElement(selector, height, width, bg, fontSize) {
 
-  this.selector = prompt("Create element", selector);
+  this.selector = selector;
   this.height = height;
   this.width = width;
   this.bg = bg;
   this.fontSize = fontSize;
 
-  function newSelector() {
-    let createText = prompt(document.querySelector(".create")),
-      enterText = document.querySelector(".enter");
-    
-       enterText.addEventListener("click", function() {
-      let newParagraph = document.createElement("p");
-      newParagraph.className = "best";
-      newParagraph.textContent = createText.value;
-      document.body.append(newParagraph);
-    });
-  }
-
-  newSelector();
-
-  // function newElem() {
-  //   let createText = document.querySelector(".create"),
-  //     enterText = document.querySelector(".enter");
-
-  //   enterText.addEventListener("click", function() {
-  //     let newParagraph = document.createElement("p");
-  //     newParagraph.className = "best";
-  //     newParagraph.textContent = createText.value;
-  //     document.body.append(newParagraph);
-  //   });
-  // }
-
-  // function newElemDiv() {
-  //   let createText = document.querySelector(".create"),
-  //     enterText = document.querySelector(".enter");
-
-  //   enterText.addEventListener("click", function() {
-  //     let newDiv = document.createElement("div");
-  //     newDiv.className = "block";
-  //     newDiv.textContent = createText.value;
-  //     document.body.append(newDiv);
-  //  });
-  // }
-
-  // function createElement(){
-  //   let createText = document.querySelector(".create"),
-  //     enterText = document.querySelector(".enter");
-
-  //     if(selector.charAt(0) === '.'){
-  //   enterText.addEventListener("click", function() {
-  //     let newDiv = document.createElement("div");
-  //     newDiv.className = "block";
-  //     newDiv.textContent = createText.value;
-  //     document.body.append(newDiv);
-  //   }); 
-  // } else if(createText.charAt(0) === '#') {
-
-  //   enterText.addEventListener("click", function() {
-  //     let newParagraph = document.createElement("p");
-  //     newParagraph.className = "best";
-  //     newParagraph.textContent = createText.value;
-  //     document.body.append(newParagraph);
-  //   });
-  //  }
-  // }
-
-  // if()
-
-  // newElem();
-  // newElemDiv();
-
-  // createElement();
 }
 
-let element = new DomElement('div', '100px', '200px', 'red', '30px');
-console.log(element);
+let createElement = document.querySelector(".create"),
+  enter = document.querySelector(".enter");
 
-// let createText = document.querySelector(".create"),
-//   enterText = document.querySelector(".enter");
+enter.addEventListener("click", function() {
+  let newEl = document.createElement("p");
+  let newDiv = document.createElement("div");
 
-// enterText.addEventListener("click", function() {
-//   let newParagraph = document.createElement("p");
-//   newParagraph.className = "best";
-//   newParagraph.textContent = createText.value;
-//   document.body.append(newParagraph);
-// });
-DomElement();
+  if (createElement.value.charAt(0) === ".") {
+    // newDiv.subsring(1);
+    newDiv.className = "block";
+    newDiv.style.backgroundColor = 'beige';
+    newDiv.style.fontSize = '30px';
+    newDiv.textContent = createElement.value;
+    document.body.append(newDiv);
+
+  } else if (createElement.value.charAt(0) === "#") {
+    // newEl.substring(1);
+    newEl.className = "best";
+    newEl.style.backgroundColor = "gold";
+    newEl.style.fontSize = "30px";
+    newEl.textContent = createElement.value;
+     document.body.append(newEl);
+  }
+});
+
+
+
+// DomElement.prototype.createElem = function() {
+//   let element = this.selector;
+//   if(element.startsWith('.') === true){
+//     element = document.createElement('div');
+//     element.className = 'block';
+//     element.style.height = this.heigth;
+//     element.style.width = this.width;
+//     element.style.backgroundColor = this.bg;
+//     element.style.fontSize = this.fontSize;
+//     document.body.append(element);
+//   }
+// };
+
+// let element = new DomElement(".div", "100px", "200px", "beige", "20px");
+
+// console.log(element);
+
+// DomElement.prototype.createElem(element);
+
+
