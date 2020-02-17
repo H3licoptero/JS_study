@@ -113,11 +113,10 @@ AppData.prototype.getBudget = function() {
 
 //рассчитываем возможный доход запись в поля "additional_income-item"
 AppData.prototype.getAddIncome = function() {
-  let _this = this;
-  additionalIncomeItem.forEach(function(item) {
+  additionalIncomeItem.forEach((item) => {
     let itemValue = item.value.trim();
     if (itemValue !== "") {
-      _this.addIncome.push(itemValue);
+      this.addIncome.push(itemValue);
     }
   });
 };
@@ -125,11 +124,11 @@ AppData.prototype.getAddIncome = function() {
 //записываем наши возможные расходы в поле "возможные расходы"(additional_expenses-item)
 AppData.prototype.getAddExpenses = function() {
   let additionalExpensesAdd = additionalExpensesItem.value.split(",");
-  let _this = this;
-  additionalExpensesAdd.forEach(function(item) {
+  
+  additionalExpensesAdd.forEach((item) => {
     item = item.trim();
     if (item !== "") {
-      _this.addExpenses.push(item);
+      this.addExpenses.push(item);
     }
   });
 };
@@ -144,18 +143,43 @@ AppData.prototype.addIncomeBlock = function() {
   }
 };
 
-//рассчитываем доп.доход в модальных окнах
+// рассчитываем доп.доход в модальных окнах
 AppData.prototype.getIncome = function() {
-  const _this = this;
-  incomeItems.forEach(function(item) {
+
+  incomeItems.forEach((item) => {
     let itemsIncome = item.querySelector(".income-title").value;
     let cashItems = item.querySelector(".income-amount").value;
 
     if (itemsIncome !== "" && cashItems !== "") {
-      _this.income[itemsIncome] = +cashItems;
+      this.income[itemsIncome] = +cashItems;
+    }
+  });
+  for (const key in this.income) {
+    this.incomeMonth += +this.income[key];
+  }
+};
+
+//блок для занаесения значений в поле обязательных расходов(expenses)
+AppData.prototype.addExpensesBlock = function() {
+  let expensesItemClone = expensesItems[0].cloneNode(true);
+  expensesItems[0].parentNode.insertBefore(expensesItemClone, expensesBtn);
+  expensesItems = document.querySelectorAll(".expenses-items");
+  if (expensesItems.length === 3) {
+    expensesBtn.style.display = "none";
+  }
+};
+
+// метод для записи в поля "Наименование" и "Сумма" в обязательных расходах
+AppData.prototype.getExpenses = function() {
+  expensesItems.forEach((item) => {
+    let itemExpenses = item.querySelector(".expenses-title").value;
+    let cashExpenses = item.querySelector(".expenses-amount").value;
+    if (itemExpenses !== "" && cashExpenses !== "") {
+      this.expenses[itemExpenses] = +cashExpenses;
     }
   });
 };
+
 
 //цель за месяц
 AppData.prototype.getTargetMonth = function() {
@@ -190,27 +214,6 @@ AppData.prototype.resultTargetMonth = function() {
   }
 };
 
-//блок для занаесения значений в поле обязательных расходов(expenses)
-AppData.prototype.addExpensesBlock = function() {
-  let expensesItemClone = expensesItems[0].cloneNode(true);
-  expensesItems[0].parentNode.insertBefore(expensesItemClone, expensesBtn);
-  expensesItems = document.querySelectorAll(".expenses-items");
-  if (expensesItems.length === 3) {
-    expensesBtn.style.display = "none";
-  }
-};
-
-//метод для записи в поля "Наименование" и "Сумма" в обязательных расходах
-AppData.prototype.getExpenses = function() {
-  let _this = this;
-  expensesItems.forEach(function(item) {
-    let itemExpenses = item.querySelector(".expenses-title").value;
-    let cashExpenses = item.querySelector(".expenses-amount").value;
-    if (itemExpenses !== "" && cashExpenses !== "") {
-      _this.expenses[itemExpenses] = +cashExpenses;
-    }
-  });
-};
 
 AppData.prototype.getInfoDeposit = function() {
   while (
@@ -277,29 +280,116 @@ AppData.prototype.reset = function() {
 };
 
 AppData.prototype.eventsListeners = function() {
-  const _this = this;
-  calculate.addEventListener("click", function() {
-    _this.start();
+
+  calculate.addEventListener("click", () => {
+    this.start();
   });
 
-  incomeBtn.addEventListener("click", function() {
-    _this.addIncomeBlock();
+  incomeBtn.addEventListener("click", () => {
+    this.addIncomeBlock();
   });
 
-  expensesBtn.addEventListener("click", function() {
-    _this.addExpensesBlock();
+  expensesBtn.addEventListener("click", () => {
+    this.addExpensesBlock();
   });
 
-  cancel.addEventListener("click", function() {
-    _this.reset();
+  cancel.addEventListener("click", () => {
+    this.reset();
   });
 
-  periodSelect.addEventListener("input", function() {
-    periodAmount.value = _this.calcPeriod();
+  periodSelect.addEventListener("input", () => {
+    periodAmount.value = this.calcPeriod();
   });
 };
 
 const appData = new AppData();
 appData.eventsListeners();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//========================================================
+
+class CarWash {
+  constructor(brand, model = CarWash.noCarBaseModel(), services = []) {
+    this.brand = brand;
+    this.model = model;
+    this.washed = false; // это для работы с методом нашего класса. Тут я не передавал аргументы в конструктор
+    this._services = services;
+  }
+
+  static noCarBaseModel() {
+    return 'none';
+  }
+
+  // вот тут будет метод для нашего конструктора в классе.
+  // будет менять свойство в конструкторе washed  на true
+  washReady() {
+    this.washed = true;
+    CarWash.counter++;
+    this.report();
+  }
+
+  // вот тут будет вызываться оповещение с инфой, что всё готово.
+  report() {
+    console.log(this.brand, this.model, this.washed);
+  }
+
+  get services() {
+    console.log(this._services);
+    
+   return this._services.length ? 'Есть доп.услуги': 'Нет доп.услуг'; 
+  }
+
+  set services(addServices) {
+    return this._services.push(addServices);
+  }
+
+}
+// наследование от нашего класса CarWash
+class PassCar extends CarWash {
+  constructor(brand, model, services, pass = 5) { // конструктор с новым параметром
+    super(brand, model, services); // с помощью ф-ии super мы можем наследовать всё от нашего родительского класса
+    this.pass = pass;
+  }
+
+  washReady() {
+    super.washReady(); // и тут тоже
+    this.reportOffice(); // 2. тут мы вызываем наш новый метод, определённы в этом классе-наследнике
+  }
+
+ // 1. это метод для нашего класса-наследника
+  reportOffice() {
+    console.log('На мойке для легковых была помыта машина');
+    
+  }
+}
+
+CarWash.counter = 0;
+
+let car1 = new CarWash('Mazda', 6, ['black tires', 'wax']);
+let car2 = new PassCar('Audi', 'A7');
+
+car2.services = 'Протирка стёкол';
+
+car1.washReady();
+car2.washReady();
+
+console.log(car1);
+console.log(car2);
+
+
 
 
