@@ -125,8 +125,7 @@ class AppData {
 
   //записываем наши возможные расходы в поле "возможные расходы"(additional_expenses-item)
   getAddExpenses() {
-    let additionalExpensesAdd = additionalExpensesItem.value.split(",");
-
+    const additionalExpensesAdd = additionalExpensesItem.value.split(",");
     additionalExpensesAdd.forEach(item => {
       item = item.trim();
       if (item !== "") {
@@ -137,7 +136,7 @@ class AppData {
 
   //добавляем поля для наших возможных доходов
   addIncomeBlock() {
-    let incomeItemClone = incomeItems[0].cloneNode(true);
+    const incomeItemClone = incomeItems[0].cloneNode(true);
     incomeItems[0].parentNode.insertBefore(incomeItemClone, incomeBtn);
     incomeItems = document.querySelectorAll(".income-items");
     if (incomeItems.length === 3) {
@@ -155,14 +154,14 @@ class AppData {
         this.income[itemsIncome] = +cashItems;
       }
     });
-    for (const key in this.income) {
+    for (let key in this.income) {
       this.incomeMonth += +this.income[key];
     }
   }
 
   //блок для занаесения значений в поле обязательных расходов(expenses)
   addExpensesBlock() {
-    let expensesItemClone = expensesItems[0].cloneNode(true);
+    const expensesItemClone = expensesItems[0].cloneNode(true);
     expensesItems[0].parentNode.insertBefore(expensesItemClone, expensesBtn);
     expensesItems = document.querySelectorAll(".expenses-items");
     if (expensesItems.length === 3) {
