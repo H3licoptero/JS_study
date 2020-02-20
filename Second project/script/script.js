@@ -1,16 +1,16 @@
 window.addEventListener("DOMContentLoaded", function() {
   "use strict";
 
-  const countTimer = setInterval(() => {
+  const countTimer = () => {
     // наши элементы из вёрстки
     let timerHours = document.querySelector("#timer-hours"),
       timerMinutes = document.querySelector("#timer-minutes"),
       timerSeconds = document.querySelector("#timer-seconds");
-
+    let intervalCount;
     // функция, которая получает данные по времени
     function getTimeRemaining() {
       // время, которое мы получаем в миллисекундах(.getTime), до нашего дедлайна
-      let dateStop = new Date("20 february 2020").getTime(),
+      let dateStop = new Date("21 february 2020").getTime(),
         // тут текущее время которое мы получаем из расчётов в мллисекундах с
         // 1970-го года(timestamp)
         dateNow = new Date().getTime(),
@@ -34,11 +34,6 @@ window.addEventListener("DOMContentLoaded", function() {
       timerMinutes.textContent = timer.minutes;
       timerSeconds.textContent = timer.seconds;
 
-      // условие, при котором время будет выводится в проект
-      if (timer.timeRemainig > 0) {
-        setInterval(updateClock, 1000);
-      }
-
       // добавляем нули перед нашими часами, минутами и секундами там, где это требуется
       if (timer.hours <= 9) {
         timerHours.textContent = "0" + timer.hours;
@@ -58,11 +53,16 @@ window.addEventListener("DOMContentLoaded", function() {
         timerHours.textContent = "00";
         timerMinutes.textContent = "00";
         timerSeconds.textContent = "00";
-        clearInterval(countTimer);
+        clearInterval(intervalCount);
       }
     }
 
-    updateClock();
-  }, 1000);
+    intervalCount = setInterval(updateClock, 1000);    
+    
+  };
 
+  countTimer();
 });
+
+
+
