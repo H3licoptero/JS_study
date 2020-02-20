@@ -62,7 +62,14 @@ window.addEventListener("DOMContentLoaded", function() {
   };
 
   countTimer();
+
+  // Меню
+  
 });
+
+
+
+
 
 
 
