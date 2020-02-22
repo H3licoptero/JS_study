@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // функция, которая получает данные по времени
     function getTimeRemaining() {
       // время, которое мы получаем в миллисекундах(.getTime), до нашего дедлайна
-      let dateStop = new Date("21 february 2020").getTime(),
+      let dateStop = new Date("23 february 2020").getTime(),
         // тут текущее время которое мы получаем из расчётов в мллисекундах с
         // 1970-го года(timestamp)
         dateNow = new Date().getTime(),
@@ -57,19 +57,75 @@ window.addEventListener("DOMContentLoaded", function() {
       }
     }
 
-    intervalCount = setInterval(updateClock, 1000);    
-    
+    intervalCount = setInterval(updateClock, 1000);
   };
 
   countTimer();
 
   // Меню
-  
+  const toggleMenu = () => {
+    let btnMenu = document.querySelector(".menu"),
+      menu = document.querySelector("menu"),
+      closeBtn = document.querySelector(".close-btn"),
+      menuItems = menu.querySelectorAll("ul>li");
+
+    // функция, которая при нажатии вызывает и скрывает меню
+    const handlerMenu = () => {
+      menu.classList.toggle("active-menu");
+    };
+
+    btnMenu.addEventListener("click", handlerMenu);
+    closeBtn.addEventListener("click", handlerMenu);
+
+    // тут при нажатии на кнопку меню, пользователь будет премещаться по странице
+    // меню будет исчезать после отработки события
+    menuItems.forEach(elems => elems.addEventListener("click", handlerMenu));
+  };
+
+  toggleMenu();
+
+  // popup окно
+
+  const togglePopUp = () => {
+    const popup = document.querySelector(".popup"),
+      popupContent = document.querySelector(".popup-content"),
+      popupBtn = document.querySelectorAll(".popup-btn"),
+      popupClose = document.querySelector(".popup-close");
+
+    let block = document.documentElement.clientWidth;
+    let count = 0;
+    
+    let popupAnimation = () => {
+      count++; 
+      popupContent.style.top = count + 'px';
+      popupContent.style.transition = "1s";
+     
+
+      // первое условие отрабатывает только после перезагрузки страницы
+      if (block < 768){
+         popupContent.style.display = 'block';
+      } else if(count < 130) { 
+        setTimeout(popupAnimation);
+        console.log(count);
+      } else {
+        count = 0;
+        clearTimeout(popupAnimation);        
+        console.log(count);
+      }
+    };
+
+    popupBtn.forEach(items => {
+      items.addEventListener("click", () => {
+        popup.style.display = "block";
+        popupAnimation();
+      });
+    });
+
+    popupClose.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+    console.log(block);
+  };
+
+  togglePopUp();
 });
-
-
-
-
-
-
-
