@@ -93,36 +93,38 @@ window.addEventListener("DOMContentLoaded", function() {
       popupClose = document.querySelector(".popup-close");
 
     let block = document.documentElement.clientWidth;
-    let count = 0;
-    
-    let popupAnimation = () => {
-      count++; 
-      popupContent.style.top = count + 'px';
-      popupContent.style.transition = "1s";
-     
 
-      // первое условие отрабатывает только после перезагрузки страницы
-      if (block < 768){
-         popupContent.style.display = 'block';
-      } else if(count < 130) { 
-        setTimeout(popupAnimation);
-        console.log(count);
+    let paramsAnimation = {count: -55, startPosition: -55, endPostion: 20, speed: 2};
+
+    // функция для анимации и вызова нашего popup-окна
+    let popupAnimation = () => {
+      popupContent.style.top = paramsAnimation.count + "%";
+      paramsAnimation.count += paramsAnimation.speed;
+
+      // условие для выполнения нашей анимации
+      if (paramsAnimation.count <= paramsAnimation.endPostion) {
+        requestAnimationFrame(popupAnimation);
       } else {
-        count = 0;
-        clearTimeout(popupAnimation);        
-        console.log(count);
+        paramsAnimation.count = paramsAnimation.startPosition;
       }
     };
 
     popupBtn.forEach(items => {
       items.addEventListener("click", () => {
+        if (block < 768){
+         popupContent.style.display = 'block';
+         paramsAnimation.count = paramsAnimation.endPosition;
+         cancelAnimationFrame(popupAnimation);
+        }
+
         popup.style.display = "block";
-        popupAnimation();
+        requestAnimationFrame(popupAnimation);
       });
     });
 
     popupClose.addEventListener("click", () => {
       popup.style.display = "none";
+      cancelAnimationFrame(popupAnimation);
     });
     console.log(block);
   };
