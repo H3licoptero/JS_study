@@ -73,19 +73,18 @@ window.addEventListener("DOMContentLoaded", function() {
 
       if (target.closest(".menu")) {
         menu.classList.toggle("active-menu");
-      } 
+      }
     });
 
     // обработчик, который закрывает меню если нажать на "х",
     // или если переместиться по странице
-    menu.addEventListener('click', () => {
+    menu.addEventListener("click", () => {
       let target = event.target;
-      
-      if(target.closest('.close-btn') || target.closest('a')){
-        menu.classList.toggle("active-menu");
-      } 
-    });
 
+      if (target.closest(".close-btn") || target.closest("a")) {
+        menu.classList.toggle("active-menu");
+      }
+    });
   };
 
   toggleMenu();
@@ -133,7 +132,7 @@ window.addEventListener("DOMContentLoaded", function() {
     });
 
     // обработчик для закрытия всех окон
-    popup.addEventListener('click', (event) => {
+    popup.addEventListener("click", event => {
       let target = event.target;
 
       if (target.classList.contains("popup-close")) {
@@ -145,7 +144,6 @@ window.addEventListener("DOMContentLoaded", function() {
           popup.style.display = "none";
         }
       }
-      
     });
   };
 
@@ -174,7 +172,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // обработчик событий для того, чтоб отрабатывало всё, включая и наш span
     // имеющийся в вёрстке
     tabHeader.addEventListener("click", event => {
-      let target = event.target;      
+      let target = event.target;
       target = target.closest(".service-header-tab");
 
       if (target) {
@@ -188,4 +186,132 @@ window.addEventListener("DOMContentLoaded", function() {
   };
 
   tabs();
+
+  // slider
+
+  const slider = () => {
+    const slide = document.querySelectorAll(".portfolio-item"),
+      btn = document.querySelectorAll(".portfolio-btn"),
+      slider = document.querySelector(".portfolio-content");
+
+    // получаем наш список с точками
+    let portfolioDots = document.querySelector(".portfolio-dots");  
+
+    // номер слайда
+    let currentSlide = 0,
+        interval;
+ 
+    // функция для создания точек, равному количеству слайдов       
+    const countSlide = () => {
+
+      slide.forEach((item, i) => {
+        let newDot = document.createElement("li");
+        newDot.classList.toggle("dot");
+        portfolioDots.appendChild(newDot);
+        console.log(newDot);
+
+        if (i === 0) {
+          newDot.classList.add("dot-active");
+        }
+      });
+    };
+    countSlide();    
+
+    //основные ф-ии для работы со слайдами
+    const prevSlide = (elem, index, strClass) => {
+      elem[index].classList.remove(strClass);
+    };
+
+    const nextSlide = (elem, index, strClass) => {
+      elem[index].classList.add(strClass);
+    };
+    
+    let dot = document.querySelectorAll('.dot');
+ 
+    // ф-ия для работы слайдера
+    const autoPlaySlide = () => {
+
+      prevSlide(slide, currentSlide, "portfolio-item-active");
+      prevSlide(dot, currentSlide, "dot-active");
+
+      currentSlide++;
+      
+      if (currentSlide >= slide.length) {
+        currentSlide = 0;
+      }
+
+      nextSlide(slide, currentSlide, "portfolio-item-active");
+      nextSlide(dot, currentSlide, "dot-active");
+
+    };
+
+    const startSlide = (time = 3000) => {
+      interval = setInterval(autoPlaySlide, time);
+    };
+
+    const stopSlide = () => {
+      clearInterval(interval);
+    };
+
+    slider.addEventListener("click", event => {
+      event.preventDefault();
+
+      let target = event.target;
+
+      if (!target.matches(".portfolio-btn, .dot")) {
+        console.log(target);
+        return;
+      }
+
+      // убираем активные классы
+      prevSlide(slide, currentSlide, "portfolio-item-active");
+      prevSlide(dot, currentSlide, "dot-active");
+
+      if (target.matches("#arrow-right")) {
+        currentSlide++;
+      } else if (target.matches("#arrow-left")) {
+        currentSlide--;
+      } else if (target.matches(".dot")) {
+        dot.forEach((elem, index) => {
+          if (elem === target) {
+            currentSlide = index;
+          }
+        });
+      }
+
+      if (currentSlide >= slide.length) {
+        currentSlide = 0;
+      }
+
+      if (currentSlide < 0) {
+        currentSlide = slide.length - 1;
+      }
+
+      // добавляем активные классы после условий
+      nextSlide(slide, currentSlide, "portfolio-item-active");
+      nextSlide(dot, currentSlide, "dot-active");
+    });
+
+    slider.addEventListener("mouseover", event => {
+      if (
+        event.target.matches(".portfolio-btn") ||
+        event.target.matches(".dot")
+      ) {
+        stopSlide();
+      }
+    });
+
+    slider.addEventListener("mouseout", event => {
+      if (
+        event.target.matches(".portfolio-btn") ||
+        event.target.matches(".dot")
+      ) {
+        startSlide();
+      }
+    });
+
+    startSlide(1500);
+  };
+
+  slider();
 });
