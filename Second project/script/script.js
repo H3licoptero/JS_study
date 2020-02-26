@@ -195,15 +195,14 @@ window.addEventListener("DOMContentLoaded", function() {
       slider = document.querySelector(".portfolio-content");
 
     // получаем наш список с точками
-    let portfolioDots = document.querySelector(".portfolio-dots");  
+    let portfolioDots = document.querySelector(".portfolio-dots");
 
     // номер слайда
     let currentSlide = 0,
-        interval;
- 
-    // функция для создания точек, равному количеству слайдов       
-    const countSlide = () => {
+      interval;
 
+    // функция для создания точек, равному количеству слайдов
+    const countSlide = () => {
       slide.forEach((item, i) => {
         let newDot = document.createElement("li");
         newDot.classList.toggle("dot");
@@ -214,7 +213,7 @@ window.addEventListener("DOMContentLoaded", function() {
         }
       });
     };
-    countSlide();    
+    countSlide();
 
     //основные ф-ии для работы со слайдами
     const prevSlide = (elem, index, strClass) => {
@@ -224,24 +223,22 @@ window.addEventListener("DOMContentLoaded", function() {
     const nextSlide = (elem, index, strClass) => {
       elem[index].classList.add(strClass);
     };
-    
-    let dot = document.querySelectorAll('.dot');
- 
+
+    let dot = document.querySelectorAll(".dot");
+
     // ф-ия для работы слайдера
     const autoPlaySlide = () => {
-
       prevSlide(slide, currentSlide, "portfolio-item-active");
       prevSlide(dot, currentSlide, "dot-active");
 
       currentSlide++;
-      
+
       if (currentSlide >= slide.length) {
         currentSlide = 0;
       }
 
       nextSlide(slide, currentSlide, "portfolio-item-active");
       nextSlide(dot, currentSlide, "dot-active");
-
     };
 
     const startSlide = (time = 3000) => {
@@ -313,49 +310,48 @@ window.addEventListener("DOMContentLoaded", function() {
 
   slider();
 
-  // картинки по атрибутам
-  const changeImage = () => {
-    let imgBlock = document.querySelector(".command .row");
-        // photo = document.querySelector('.command__photo');
-        // console.log(photo);
-        
-
-    imgBlock.addEventListener('mouseover', (event) => {
-      let target = event.target;  
-
-      if(event.target.matches('img')) {
-      event.target.src = event.target.dataset.img;
-      console.log(event.target.matches('img'));
-      }
-
-    }); 
-
-
-
-    console.log(imgBlock);  
-  };
- 
-  changeImage();
-
   // разрешаем вводить только цифры
   const calc = () => {
-    let calcSquare = document.querySelector('.calc-square'),
-        calcCount = document.querySelector('.calc-count'),
-        calcDay = document.querySelector('.calc-day');
+    let calcSquare = document.querySelector(".calc-square"),
+      calcCount = document.querySelector(".calc-count"),
+      calcDay = document.querySelector(".calc-day");
 
-    calcSquare.addEventListener('input', () => {
+    calcSquare.addEventListener("input", () => {
       calcSquare.value = calcSquare.value.replace(/\D/g);
     });
 
-    calcCount.addEventListener('input', () => {
+    calcCount.addEventListener("input", () => {
       calcCount.value = calcCount.value.replace(/\D/g);
     });
 
     calcDay.addEventListener("input", () => {
       calcDay.value = calcDay.value.replace(/\D/g);
     });
-    
   };
 
   calc();
+
+  // картинки по атрибутам
+  const changeImage = () => {
+    let imgBlock = document.querySelectorAll(".command__photo"),
+      photo;
+
+    // эта переменная будет хранить текущее значение, чтоб в дальнейшем её можно было
+    // восстановить, т.к. dataset перезапишет текущее значение и вернуть его  будет невозможно
+
+    imgBlock.forEach(elem =>
+      elem.addEventListener("mouseenter", event => {
+        photo = event.target.src;
+        event.target.src = event.target.dataset.img;
+      })
+    );
+
+    imgBlock.forEach(elem =>
+      elem.addEventListener("mouseleave", event => {
+        event.target.src = photo;
+      })
+    );
+  };
+
+  changeImage();
 });
