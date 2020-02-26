@@ -208,7 +208,6 @@ window.addEventListener("DOMContentLoaded", function() {
         let newDot = document.createElement("li");
         newDot.classList.toggle("dot");
         portfolioDots.appendChild(newDot);
-        console.log(newDot);
 
         if (i === 0) {
           newDot.classList.add("dot-active");
@@ -259,7 +258,6 @@ window.addEventListener("DOMContentLoaded", function() {
       let target = event.target;
 
       if (!target.matches(".portfolio-btn, .dot")) {
-        console.log(target);
         return;
       }
 
@@ -314,4 +312,50 @@ window.addEventListener("DOMContentLoaded", function() {
   };
 
   slider();
+
+  // картинки по атрибутам
+  const changeImage = () => {
+    let imgBlock = document.querySelector(".command .row");
+        // photo = document.querySelector('.command__photo');
+        // console.log(photo);
+        
+
+    imgBlock.addEventListener('mouseover', (event) => {
+      let target = event.target;  
+
+      if(event.target.matches('img')) {
+      event.target.src = event.target.dataset.img;
+      console.log(event.target.matches('img'));
+      }
+
+    }); 
+
+
+
+    console.log(imgBlock);  
+  };
+ 
+  changeImage();
+
+  // разрешаем вводить только цифры
+  const calc = () => {
+    let calcSquare = document.querySelector('.calc-square'),
+        calcCount = document.querySelector('.calc-count'),
+        calcDay = document.querySelector('.calc-day');
+
+    calcSquare.addEventListener('input', () => {
+      calcSquare.value = calcSquare.value.replace(/\D/g);
+    });
+
+    calcCount.addEventListener('input', () => {
+      calcCount.value = calcCount.value.replace(/\D/g);
+    });
+
+    calcDay.addEventListener("input", () => {
+      calcDay.value = calcDay.value.replace(/\D/g);
+    });
+    
+  };
+
+  calc();
 });
