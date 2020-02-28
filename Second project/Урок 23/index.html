@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 23</title>
+    <style>
+        input {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    
+    <section>
+        <form id="myForm">
+
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone" placeholder="phone">
+            <br>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="email">
+            <br>
+
+            <button type="submit">submit</button>
+            <button type="reset">reset</button>
+
+        </form>
+    </section>
+    <script src="./plugins/validator/validator.js"></script>
+    <script>
+        const valid = new Validator({
+            selector: '#myForm',
+            pattern: {
+                // phone: /^\+380\d{9}$/,
+                zip: /\d{5,6}/
+            },
+            method: {
+                'phone': [
+                    ['notEmpty'],
+                    ['pattern', 'phone']
+                ],
+                'email': [
+                    ['notEmpty'],
+                    ['pattern', 'email']
+                ]
+            }
+        });
+        valid.init();
+    </script>
+</body>
+</html>
