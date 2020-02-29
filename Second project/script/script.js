@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // функция, которая получает данные по времени
     function getTimeRemaining() {
       // время, которое мы получаем в миллисекундах(.getTime), до нашего дедлайна
-      let dateStop = new Date("30 march 2020").getTime(),
+      let dateStop = new Date("1 march 2020").getTime(),
         // тут текущее время которое мы получаем из расчётов в мллисекундах с
         // 1970-го года(timestamp)
         dateNow = new Date().getTime(),
