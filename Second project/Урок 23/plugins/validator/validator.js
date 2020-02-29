@@ -122,4 +122,3 @@ class Validator{
         console.log(this.pattern);
     }
 }
-
