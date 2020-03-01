@@ -391,22 +391,22 @@ window.addEventListener("DOMContentLoaded", function() {
 
     nameFirst.addEventListener('input', event => {
       let target = event.target;
-        target.value = target.value.replace(/[^а-яА-ЯЁё ]/ig,"");      
+        target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi,"");      
     });
 
     nameSecond.addEventListener('input', event => {
       let target = event.target;
-        target.value = target.value.replace(/[^а-яА-ЯЁё ]/ig,"");      
+        target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi,"");      
     });
 
     nameThird.addEventListener("input", event => {
       let target = event.target;
-      target.value = target.value.replace(/[^а-яА-ЯЁё ]/gi, "");
+      target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi, "");
     });
 
     formField.addEventListener("input", event => {
       let target = event.target;
-      target.value = target.value.replace(/[^а-яА-ЯЁё ]/gi, "");
+      target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi, "");
     });
 
     const statusMessage = document.createElement("div");
@@ -420,10 +420,9 @@ window.addEventListener("DOMContentLoaded", function() {
         el.addEventListener('input', event => {
           let target = event.target;
           if(event.target.matches('input')){
-            target.value = target.value.replace(/\D/g,'+');
+            target.value = target.value.replace(/[^+\d]/g,'');
           }
 
-            console.log(target);
         }));
       };
       checkForm();
@@ -438,12 +437,17 @@ window.addEventListener("DOMContentLoaded", function() {
         const formData = new FormData(form);
         let body = {};
 
+        if(target.matches('input')) {
+          target.value = '';
+        }
+
       formData.forEach((value, key) => {
         body[key] = value;
       });
 
         postData(body, () => {
           statusMessage.textContent = succsessMessage;
+          form.reset();
         }, (error) => { 
           statusMessage.textContent = errorMessage;
           console.error(error);
@@ -465,6 +469,7 @@ window.addEventListener("DOMContentLoaded", function() {
           body,
           () => {
             statusMessage.textContent = succsessMessage;
+            secondForm.reset();
           },
           error => {
             statusMessage.textContent = errorMessage;
@@ -488,7 +493,7 @@ window.addEventListener("DOMContentLoaded", function() {
           body,
           () => {
             statusMessage.textContent = succsessMessage;
-
+            thirdForm.reset();
           },
           error => {
             statusMessage.textContent = errorMessage;
