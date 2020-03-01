@@ -312,7 +312,6 @@ window.addEventListener("DOMContentLoaded", function() {
 
   // Калькулятор
   const calc = (price = 100) => {
-
     let calcBlock = document.querySelector(".calc-block"),
       calcType = document.querySelector(".calc-type"),
       calcSquare = document.querySelector(".calc-square"),
@@ -326,13 +325,13 @@ window.addEventListener("DOMContentLoaded", function() {
         dayValue = 1;
 
       let typeValue = calcType.options[calcType.selectedIndex].value,
-       squareValue = +calcSquare.value;
+        squareValue = +calcSquare.value;
 
-      if(calcCount.value > 1) {
+      if (calcCount.value > 1) {
         countValue += (calcCount.value - 1) / 10;
       }
 
-      if(calcDay.value && calcDay.value < 5) {
+      if (calcDay.value && calcDay.value < 5) {
         dayValue *= 2;
       } else if (calcDay.value && calcDay.value < 10) {
         dayValue *= 1.5;
@@ -340,8 +339,8 @@ window.addEventListener("DOMContentLoaded", function() {
 
       if (typeValue && squareValue) {
         total = price * typeValue * squareValue * countValue * dayValue;
-      } 
-      
+      }
+
       totalValue.textContent = Math.ceil(total);
     };
 
@@ -356,7 +355,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // проверка ввода на числа
     let checkInputs = () => {
       let inputBlock = document.querySelectorAll(".calc-item");
-      
+
       inputBlock.forEach(el =>
         el.addEventListener("input", event => {
           let target = event.target;
@@ -368,12 +367,157 @@ window.addEventListener("DOMContentLoaded", function() {
     };
 
     checkInputs();
-    
   };
 
   calc(100);
 
+  // отправка формы с использованием ajax
+  const sendForm = () => {
+    // создаём переменные с текущим статусом после отправки данных
+    const errorMessage = "Что-то пошло не так...",
+      loadMessage = "Загрузка...",
+      succsessMessage = "Спасибо, мы скоро с вами свяжемся!";
 
+    // получаем наши формы с полями ввода
+    const form = document.getElementById("form1"),
+        secondForm = document.getElementById('form2'),
+        thirdForm = document.getElementById('form3');
+
+    // только русские буквы и пробелы на ввод в "поле с именем" и "сообщение"
+    const nameFirst = document.getElementById('form1-name');
+    const nameSecond = document.getElementById("form2-name");
+    const nameThird = document.getElementById("form3-name");
+    const formField = document.getElementById("form2-message");
+
+    nameFirst.addEventListener('input', event => {
+      let target = event.target;
+        target.value = target.value.replace(/[^а-яА-ЯЁё ]/ig,"");      
+    });
+
+    nameSecond.addEventListener('input', event => {
+      let target = event.target;
+        target.value = target.value.replace(/[^а-яА-ЯЁё ]/ig,"");      
+    });
+
+    nameThird.addEventListener("input", event => {
+      let target = event.target;
+      target.value = target.value.replace(/[^а-яА-ЯЁё ]/gi, "");
+    });
+
+    formField.addEventListener("input", event => {
+      let target = event.target;
+      target.value = target.value.replace(/[^а-яА-ЯЁё ]/gi, "");
+    });
+
+    const statusMessage = document.createElement("div");
+    statusMessage.style.cssText = "font-size: 2rem;";
+
+    // ввод только для цифр в поля "номер телефона"
+    const formPhone = document.querySelectorAll(".form-phone");
+    let checkForm = () => {
+
+      formPhone.forEach(el => 
+        el.addEventListener('input', event => {
+          let target = event.target;
+          if(event.target.matches('input')){
+            target.value = target.value.replace(/\D/g,'+');
+          }
+
+            console.log(target);
+        }));
+      };
+      checkForm();
+      
+
+      form.addEventListener("submit", event => {
+        let target = event.target;
+
+        event.preventDefault();
+        form.appendChild(statusMessage);
+        statusMessage.textContent = loadMessage;
+        const formData = new FormData(form);
+        let body = {};
+
+      formData.forEach((value, key) => {
+        body[key] = value;
+      });
+
+        postData(body, () => {
+          statusMessage.textContent = succsessMessage;
+        }, (error) => { 
+          statusMessage.textContent = errorMessage;
+          console.error(error);
+        });
+      });
+
+      secondForm.addEventListener("submit", event => {
+        event.preventDefault();
+        secondForm.appendChild(statusMessage);
+        statusMessage.textContent = loadMessage;
+        const formData = new FormData(secondForm);
+        let body = {};
+
+        formData.forEach((value, key) => {
+          body[key] = value;
+        });
+
+        postData(
+          body,
+          () => {
+            statusMessage.textContent = succsessMessage;
+          },
+          error => {
+            statusMessage.textContent = errorMessage;
+            console.error(error);
+          }
+        );
+      });
+
+      thirdForm.addEventListener("submit", event => {
+        event.preventDefault();
+        thirdForm.appendChild(statusMessage);
+        statusMessage.textContent = loadMessage;
+        const formData = new FormData(thirdForm);
+        let body = {};
+
+        formData.forEach((value, key) => {
+          body[key] = value;
+        });
+
+        postData(
+          body,
+          () => {
+            statusMessage.textContent = succsessMessage;
+
+          },
+          error => {
+            statusMessage.textContent = errorMessage;
+            console.error(error);
+          }
+        );
+      });
+
+      const postData = (body, outputData, errorData) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener("readystatechange", () => {
+
+          if (request.readyState !== 4) {
+            return;
+          }
+          if (request.status === 200) {
+            outputData();
+          } else {
+            errorData(request.status);
+          }
+        });
+        request.open("POST", "./server.php");
+        request.setRequestHeader("Content-Type", "application/json");
+
+        request.send(JSON.stringify(body));
+      };
+  };
+
+  sendForm();
 
   // картинки по атрибутам
   const changeImage = () => {
@@ -398,4 +542,5 @@ window.addEventListener("DOMContentLoaded", function() {
   };
 
   changeImage();
+  
 });
