@@ -378,87 +378,59 @@ window.addEventListener("DOMContentLoaded", function() {
       loadMessage = "Загрузка...",
       succsessMessage = "Спасибо, мы скоро с вами свяжемся!";
 
-    // получаем наши формы с полями ввода
-    const form = document.getElementById("form1"),
-        secondForm = document.getElementById('form2'),
-        thirdForm = document.getElementById('form3');
+    // получаем наши формы
+    const forms = document.querySelectorAll("form");
 
-    // только русские буквы и пробелы на ввод в "поле с именем" и "сообщение"
-    const nameFirst = document.getElementById('form1-name');
-    const nameSecond = document.getElementById("form2-name");
-    const nameThird = document.getElementById("form3-name");
-    const formField = document.getElementById("form2-message");
-
-    nameFirst.addEventListener('input', event => {
-      let target = event.target;
-        target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi,"");      
-    });
-
-    nameSecond.addEventListener('input', event => {
-      let target = event.target;
-        target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi,"");      
-    });
-
-    nameThird.addEventListener("input", event => {
-      let target = event.target;
-      target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi, "");
-    });
-
-    formField.addEventListener("input", event => {
-      let target = event.target;
-      target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi, "");
-    });
-
+    // создаем элемент с сообщением о статусе запроса
     const statusMessage = document.createElement("div");
     statusMessage.style.cssText = "font-size: 2rem;";
 
+    // только русские буквы и пробелы на ввод в "поле с именем" и "сообщение"
+    const formName = document.querySelectorAll("[name=user_name], [name=user_message]");
+
     // ввод только для цифр в поля "номер телефона"
     const formPhone = document.querySelectorAll(".form-phone");
-    let checkForm = () => {
 
-      formPhone.forEach(el => 
-        el.addEventListener('input', event => {
-          let target = event.target;
-          if(event.target.matches('input')){
-            target.value = target.value.replace(/[^+\d]/g,'');
-          }
+    formName.forEach(elems =>
+      elems.addEventListener("input", event => {
+        let target = event.target;
+        target.value = target.value.replace(/[^а-яА-ЯЁё ]$/gi, "");
+      })
+    );
 
-        }));
-      };
-      checkForm();
-      
+    formPhone.forEach(el =>
+      el.addEventListener("input", event => {
+        let target = event.target;
+        target.value = target.value.replace(/[^+\d]/g, "");
+      })
+    );
 
-      form.addEventListener("submit", event => {
+    const postData = (body, outputData, errorData) => {
+      const request = new XMLHttpRequest();
+      request.addEventListener("readystatechange", () => {
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          outputData();
+        } else {
+          errorData(request.status);
+        }
+      });
+      request.open("POST", "./server.php");
+      request.setRequestHeader("Content-Type", "application/json");
+
+      request.send(JSON.stringify(body));
+    };
+
+    forms.forEach(el =>
+      el.addEventListener("submit", event => {
         let target = event.target;
 
         event.preventDefault();
-        form.appendChild(statusMessage);
+        el.appendChild(statusMessage);
         statusMessage.textContent = loadMessage;
-        const formData = new FormData(form);
-        let body = {};
-
-        if(target.matches('input')) {
-          target.value = '';
-        }
-
-      formData.forEach((value, key) => {
-        body[key] = value;
-      });
-
-        postData(body, () => {
-          statusMessage.textContent = succsessMessage;
-          form.reset();
-        }, (error) => { 
-          statusMessage.textContent = errorMessage;
-          console.error(error);
-        });
-      });
-
-      secondForm.addEventListener("submit", event => {
-        event.preventDefault();
-        secondForm.appendChild(statusMessage);
-        statusMessage.textContent = loadMessage;
-        const formData = new FormData(secondForm);
+        const formData = new FormData(el);
         let body = {};
 
         formData.forEach((value, key) => {
@@ -469,57 +441,15 @@ window.addEventListener("DOMContentLoaded", function() {
           body,
           () => {
             statusMessage.textContent = succsessMessage;
-            secondForm.reset();
+            el.reset();
           },
           error => {
             statusMessage.textContent = errorMessage;
             console.error(error);
           }
         );
-      });
-
-      thirdForm.addEventListener("submit", event => {
-        event.preventDefault();
-        thirdForm.appendChild(statusMessage);
-        statusMessage.textContent = loadMessage;
-        const formData = new FormData(thirdForm);
-        let body = {};
-
-        formData.forEach((value, key) => {
-          body[key] = value;
-        });
-
-        postData(
-          body,
-          () => {
-            statusMessage.textContent = succsessMessage;
-            thirdForm.reset();
-          },
-          error => {
-            statusMessage.textContent = errorMessage;
-            console.error(error);
-          }
-        );
-      });
-
-      const postData = (body, outputData, errorData) => {
-        const request = new XMLHttpRequest();
-        request.addEventListener("readystatechange", () => {
-
-          if (request.readyState !== 4) {
-            return;
-          }
-          if (request.status === 200) {
-            outputData();
-          } else {
-            errorData(request.status);
-          }
-        });
-        request.open("POST", "./server.php");
-        request.setRequestHeader("Content-Type", "application/json");
-
-        request.send(JSON.stringify(body));
-      };
+      })
+    );
   };
 
   sendForm();
@@ -547,5 +477,4 @@ window.addEventListener("DOMContentLoaded", function() {
   };
 
   changeImage();
-  
 });
