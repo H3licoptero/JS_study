@@ -405,22 +405,26 @@ window.addEventListener("DOMContentLoaded", function() {
       })
     );
 
-    const postData = (body, outputData, errorData) => {
-      const request = new XMLHttpRequest();
+    const postData = (body) => {
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        console.log(request);
+        
       request.addEventListener("readystatechange", () => {
         if (request.readyState !== 4) {
           return;
         }
         if (request.status === 200) {
-          outputData();
+          resolve();
         } else {
-          errorData(request.status);
+          reject(request.status);
         }
       });
       request.open("POST", "./server.php");
       request.setRequestHeader("Content-Type", "application/json");
 
       request.send(JSON.stringify(body));
+      });
     };
 
     forms.forEach(el =>
@@ -437,17 +441,11 @@ window.addEventListener("DOMContentLoaded", function() {
           body[key] = value;
         });
 
-        postData(
-          body,
-          () => {
-            statusMessage.textContent = succsessMessage;
-            el.reset();
-          },
-          error => {
-            statusMessage.textContent = errorMessage;
-            console.error(error);
-          }
-        );
+        postData(body)
+        .then(el => statusMessage.textContent = succsessMessage,
+               el.reset())
+        .catch(el => statusMessage.textContent = errorMessage, 
+              error => console.error(error));
       })
     );
   };
