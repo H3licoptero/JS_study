@@ -7,10 +7,12 @@ window.addEventListener("DOMContentLoaded", function() {
       timerMinutes = document.querySelector("#timer-minutes"),
       timerSeconds = document.querySelector("#timer-seconds");
     let intervalCount;
+    // переменная для сброса времени при обновлении страницы 
+    let displayTimeCheck = 0;
     // функция, которая получает данные по времени
     function getTimeRemaining() {
       // время, которое мы получаем в миллисекундах(.getTime), до нашего дедлайна
-      let dateStop = new Date("1 march 2020").getTime(),
+      let dateStop = new Date("6 march 2020").getTime(),
         // тут текущее время которое мы получаем из расчётов в мллисекундах с
         // 1970-го года(timestamp)
         dateNow = new Date().getTime(),
@@ -28,6 +30,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // ф-ия которая выводит данные по времени на нашу страницу
     function updateClock() {
       let timer = getTimeRemaining();
+      let displayTimeCheck = 1000;
 
       // выводим наше время в наш проект
       timerHours.textContent = timer.hours;
@@ -57,7 +60,7 @@ window.addEventListener("DOMContentLoaded", function() {
       }
     }
 
-    intervalCount = setInterval(updateClock, 1000);
+    intervalCount = setInterval(updateClock, displayTimeCheck);
   };
 
   countTimer();
@@ -405,25 +408,13 @@ window.addEventListener("DOMContentLoaded", function() {
       })
     );
 
-    const postData = (body) => {
-      return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        console.log(request);
-        
-      request.addEventListener("readystatechange", () => {
-        if (request.readyState !== 4) {
-          return;
-        }
-        if (request.status === 200) {
-          resolve();
-        } else {
-          reject(request.status);
-        }
-      });
-      request.open("POST", "./server.php");
-      request.setRequestHeader("Content-Type", "application/json");
-
-      request.send(JSON.stringify(body));
+    const postData = body => {
+      return fetch("./server.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
       });
     };
 
@@ -434,7 +425,7 @@ window.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         el.appendChild(statusMessage);
         statusMessage.textContent = loadMessage;
-        const formData = new FormData(el);
+        const formData = new FormData(el);   
         let body = {};
 
         formData.forEach((value, key) => {
@@ -442,11 +433,24 @@ window.addEventListener("DOMContentLoaded", function() {
         });
 
         postData(body)
-        .then(el => statusMessage.textContent = succsessMessage,
-               el.reset())
-        .catch(el => statusMessage.textContent = errorMessage, 
-              error => console.error(error));
+          .then(response => {
+            if (response.status === 400) {
+              throw new Error("data is not found");
+            }
+
+            if (response.status !== 200) {
+              throw new Error("status network not 200");
+            }
+
+            statusMessage.textContent = succsessMessage;
+            el.reset();
+          })
+          .catch(error => {
+            statusMessage.textContent = errorMessage;
+            console.error(error);
+          });
       })
+     
     );
   };
 
