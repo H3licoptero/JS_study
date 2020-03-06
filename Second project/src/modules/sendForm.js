@@ -13,7 +13,7 @@ const sendForm = () => {
   const statusMessage = document.createElement("div");
   statusMessage.style.cssText = "font-size: 2rem;";
 
-  // только русские буквы и пробелы на ввод в "поле с именем" и "сообщение"
+  // только русские буквы и пробелы на ввод в "поле с именем"
   const formName = document.querySelectorAll("[name=user_name]");
 
   // ввод только для цифр в поля "номер телефона"
@@ -33,8 +33,7 @@ const sendForm = () => {
     })
   );
 
-  // только русские буквы и пробелы на ввод в "поле с именем"
-
+  // только русские буквы и пробелы на ввод в "поле с сообщением"
   const formMessage = document.querySelector("[name=user_message]");
 
   formMessage.addEventListener("input", event => {
