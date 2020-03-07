@@ -81,6 +81,7 @@ const sendForm = () => {
         })
         .catch(error => {
           statusMessage.textContent = errorMessage;
+          setTimeout(() => (statusMessage.textContent = ""), 5000);
           console.error(error);
         });
     })
