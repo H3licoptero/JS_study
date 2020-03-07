@@ -58,6 +58,9 @@ const sendForm = () => {
       event.preventDefault();
       el.appendChild(statusMessage);
       statusMessage.textContent = loadMessage;
+      if(target.matches('#form3')) {
+        statusMessage.style.cssText = "font-size: 2rem; color: #fff";
+      }
       const formData = new FormData(el);
       let body = {};
 
