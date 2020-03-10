@@ -30,7 +30,4 @@ for(let i = 0; i < arr.length; i++) {
 }
 
 console.log(sumNumbers);
-console.log(+resultCount);
-
-
-
+alert(+resultCount);
