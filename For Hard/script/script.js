@@ -11,7 +11,7 @@ function getString(string) {
       return alert(string.trim());
     }
 
-     alert(string);
+   return alert(string);
 }
 
 let check = prompt('', '');
