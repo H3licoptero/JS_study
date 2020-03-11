@@ -17,16 +17,14 @@ let lang = prompt('', '');
             break;
     }
 
-let arr = [
-  "ru",
-  ["Понедельник, вторник, среда, четверг, пятница"],
-  "en",
-  ["Monday, tuesday, wednesday, thursday, friday"]
-];
+let arr = {
+  "ru":
+   ["Понедельник, вторник, среда, четверг, пятница"],
+  "en":
+   ["Monday, tuesday, wednesday, thursday, friday"]
+};
 
- arr = (lang === 'ru') ? alert(arr[1]) : (lang === 'en') ? alert(arr[3]) : 
-console.log(arr);
-
+alert(arr[lang]);
 
 
 let person = prompt("Введите имя ", " ");
